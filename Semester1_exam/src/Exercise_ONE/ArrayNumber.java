@@ -1,61 +1,41 @@
+package Exercise_ONE;
+
 import java.util.Scanner;
 
-public class ArrayNumber {
+public class array {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        int n = 10;
+        int[] numbers = new int[n];
+        int count = 0;
 
+        Scanner in = new Scanner(System.in);
 
-        int[] numbers = new int[1];
-        int index = 0;
-
+        System.out.println("Enter numbers (enter a negative number to quit):");
 
         while (true) {
-            Integer userInput = getIntegerInput(scanner);
+            int input = in.nextInt();
 
-            if (userInput == -1) {
+            if (input < 0) {
                 break;
             }
 
-            if (userInput != null) {
-                if (index == numbers.length) {
-                    numbers = resizeArray(numbers);
+            if (count == numbers.length) {
+                int[] newArray = new int[count + n];
+                for (int i = 0; i < count; i++) {
+                    newArray[i] = numbers[i];
                 }
-
-                numbers[index] = userInput;
-                index++;
+                numbers = newArray;
             }
+
+            numbers[count] = input;
+            count++;
         }
 
-        displayEnteredNumbers(numbers, index);
-
-        scanner.close();
-
-    }
-    private static Integer getIntegerInput(Scanner scanner) {
-        System.out.print("Number (enter -1 to stop): ");
-
-        if (scanner.hasNextInt()) {
-            return scanner.nextInt();
-        } else {
-            scanner.next();
-            System.out.println("Invalid input. Please enter a valid number or -1 to stop.");
-            return null;
+        System.out.println("Entered numbers:");
+        System.out.print("array={");
+        for (int i = 0; i < count; i++) {
+            System.out.print(numbers[i] + ", ");
         }
+        System.out.println("}");
     }
-
-    private static int[] resizeArray(int[] oldArray) {
-        int newSize = oldArray.length * 2;
-        int[] newArray = new int[newSize];
-        System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
-        return newArray;
-    }
-
-    private static void displayEnteredNumbers(int[] numbers, int size) {
-        System.out.println("\nEntered numbers:");
-
-        for (int i = 0; i < size; i++) {
-            System.out.print(numbers[i] + " ");
-        }
-    }
-
 }
