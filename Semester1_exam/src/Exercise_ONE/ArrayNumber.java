@@ -2,7 +2,7 @@ package Exercise_ONE;
 
 import java.util.Scanner;
 
-public class array {
+public class ArrayNumber {
     public static void main(String[] args) {
         int n = 10;
         int[] numbers = new int[n];
