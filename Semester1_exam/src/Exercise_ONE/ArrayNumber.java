@@ -1,39 +1,61 @@
-package Exercise_ONE;
-
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class ArrayNumber {
     public static void main(String[] args) {
-        int n = 1;
-        int[] arrayNum = new int[n];
-        Scanner in = new Scanner(System.in);
-        System.out.println("Choose option:");
-        System.out.println("1.Input number in Array.");
-        System.out.println("2.Output number from Array.");
-        System.out.println("3.Exit.");
-        System.out.print("Enter your choice:");
-        int choice = in.nextInt();
-        switch (choice){
-            case 1:
-                System.out.print("Input number:");
-                arrayNum[n]=in.nextInt();
-                while(arrayNum[n] > 0){
-                    n++;
-                    System.out.print("Input number:");
-                    arrayNum[n]=in.nextInt();
-                }
+        Scanner scanner = new Scanner(System.in);
+
+
+        int[] numbers = new int[1];
+        int index = 0;
+
+
+        while (true) {
+            Integer userInput = getIntegerInput(scanner);
+
+            if (userInput == -1) {
                 break;
-            case 2:
-                System.out.println("Output the element from the array");
-                for(int j = 0; j<n; j++){
-                    System.out.println("number[" + j + "] = " + arrayNum[j]);
+            }
+
+            if (userInput != null) {
+                if (index == numbers.length) {
+                    numbers = resizeArray(numbers);
                 }
-                break;
-            case 3:
-                System.exit(0);
+
+                numbers[index] = userInput;
+                index++;
+            }
         }
 
+        displayEnteredNumbers(numbers, index);
+
+        scanner.close();
+
+    }
+    private static Integer getIntegerInput(Scanner scanner) {
+        System.out.print("Number (enter -1 to stop): ");
+
+        if (scanner.hasNextInt()) {
+            return scanner.nextInt();
+        } else {
+            scanner.next();
+            System.out.println("Invalid input. Please enter a valid number or -1 to stop.");
+            return null;
+        }
+    }
+
+    private static int[] resizeArray(int[] oldArray) {
+        int newSize = oldArray.length * 2;
+        int[] newArray = new int[newSize];
+        System.arraycopy(oldArray, 0, newArray, 0, oldArray.length);
+        return newArray;
+    }
+
+    private static void displayEnteredNumbers(int[] numbers, int size) {
+        System.out.println("\nEntered numbers:");
+
+        for (int i = 0; i < size; i++) {
+            System.out.print(numbers[i] + " ");
+        }
     }
 
 }
